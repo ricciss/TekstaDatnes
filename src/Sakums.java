@@ -24,7 +24,6 @@ public class Sakums extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Sakums frame = new Sakums();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
