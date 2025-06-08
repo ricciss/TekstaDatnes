@@ -1,0 +1,88 @@
+----------- Testa Rezultāti -----------
+Kopējais punktu skaits: 5
+Pareizas atbildes: 5
+Nepareizas atbildes: 5
+---------------------------------------
+Detalizēti rezultāti:
+--------------------------------------------------------------------------------------------------------------------
+Jautājums 1: Kāda Java pakotne ļauj strādāt ar failiem, izmantojot 'File' klasi?
+  A) java.util
+  B) java.lang
+  C) java.io
+  D) java.net
+  Jūsu atbilde: C
+  Statuss: PAREIZI
+
+Jautājums 2: Kuras divas klases ir ieteicams izmantot datu rakstīšanai un lasīšanai no teksta failiem Java valodā?
+  A) FileInputStream un FileOutputStream
+  B) FileReader un FileWriter
+  C) DataInputStream un DataOutputStream
+  D) BufferedInputStream un BufferedOutputStream
+  Jūsu atbilde: B
+  Statuss: PAREIZI
+
+Jautājums 3: Kāda ir FileWriter klases galvenā funkcija?
+  A) Datu rakstīšana baitu formā failā
+  B) Datu lasīšana baitu formā no faila
+  C) Datu rakstīšana rakstzīmju formā failā
+  D) Datu lasīšana rakstzīmju formā no faila
+  Jūsu atbilde: C
+  Statuss: PAREIZI
+
+Jautājums 4: Kāda metode tiek izmantota, lai izveidotu jaunu, tukšu failu, izmantojot 'File' klasi?
+  A) openNewFile()
+  B) create()
+  C) newFile()
+  D) createNewFile()
+  Jūsu atbilde: B
+  Statuss: NEPAREIZI | Pareizā atbilde: D
+
+Jautājums 5: Kāda ir noklusējuma lieluma iekšējā bufera vērtība BufferedReader klasē?
+  A) 1024 rakstzīmes
+  B) 2048 rakstzīmes
+  C) 4096 rakstzīmes
+  D) 8192 rakstzīmes
+  Jūsu atbilde: B
+  Statuss: NEPAREIZI | Pareizā atbilde: D
+
+Jautājums 6: Kura no minētajām metodēm pieder BufferedReader klasei, un tiek izmantota, lai izlaistu noteiktu skaitu rakstzīmju?
+  A) readLine()
+  B) skip()
+  C) jump()
+  D) nextChar()
+  Jūsu atbilde: B
+  Statuss: PAREIZI
+
+Jautājums 7: Kura metode ir piemērota datu lasīšanai pa rindām no teksta faila?
+  A) readChar()
+  B) read()
+  C) readLine()
+  D) readBytes()
+  Jūsu atbilde: C
+  Statuss: PAREIZI
+
+Jautājums 8: Kāpēc BufferedReader ir efektīvāks par parasto FileReader?
+  A) Tas izmanto mazāk atmiņas.
+  B) Tas samazina saziņas skaitu ar disku, izmantojot buferi.
+  C) Tas var nolasīt binārus datus.
+  D) Tas atbalsta vairāku pavedienu lasīšanu.
+  Jūsu atbilde: C
+  Statuss: NEPAREIZI | Pareizā atbilde: B
+
+Jautājums 9: Kura klase tiek izmantota, lai nolasītu lietotāja ievadi no konsoles, kas līdzīga teksta faila lasīšanai, bet nav nepieciešama šajā GUI risinājumā?
+  A) FileReader
+  B) System.in
+  C) Scanner
+  D) InputStream
+  Jūsu atbilde: B
+  Statuss: NEPAREIZI | Pareizā atbilde: C
+
+Jautājums 10: Kāds ir galvenais ieguvums, izmantojot try-with-resources bloku ar failu straumēm?
+  A) Tas palielina failu lasīšanas ātrumu.
+  B) Tas automātiski aizver resursus, neatkarīgi no tā, vai rodas izņēmums.
+  C) Tas nodrošina datu šifrēšanu.
+  D) Tas atbalsta asinhronas darbības.
+  Jūsu atbilde: C
+  Statuss: NEPAREIZI | Pareizā atbilde: B
+
+

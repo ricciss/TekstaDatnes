@@ -218,7 +218,10 @@ public class JautajumuLogs extends JFrame {
     }
 
     private void finishQuiz() {
-       
+    	dispose();
+        new BeiguLogs(totalScore, correctAnswersCount, incorrectAnswersCount,
+                      allQuestionTexts, allOptionAs, allOptionBs, allOptionCs, allOptionDs,
+                     allUserAnswers, allCorrectAnswers).setVisible(true);
     }
 
     public static JautajumuLogs getFrame() {
