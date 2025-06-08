@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Sakums extends JFrame {
 
@@ -17,6 +19,7 @@ public class Sakums extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	static Sakums frame = new Sakums();
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,6 +48,12 @@ public class Sakums extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Sākt");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+	            JautajumuLogs.getFrame().setVisible(true);
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		
 		btnNewButton.setBounds(235, 336, 196, 50);
@@ -61,4 +70,11 @@ public class Sakums extends JFrame {
 		lblNewLabel_1.setBounds(118, 0, 426, 234);
 		contentPane.add(lblNewLabel_1);
 	}
+	public static Sakums getFrame() {
+        return frame;
+    }
+
+    public static void setFrame(Sakums frame) {
+        Sakums.frame = frame;
+    }
 }
