@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream; 
+import java.io.InputStreamReader; 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +47,10 @@ public class JautajumuLogs extends JFrame {
     private int correctAnswersCount = 0;
     private int incorrectAnswersCount = 0;
 
-    private final String QUESTIONS_FILE = "jautajumi.txt";
+    private final String QUESTIONS_FILE = "jautajumi.txt"; 
 
     public JautajumuLogs() {
-    	setIconImage(new ImageIcon(getClass().getResource("javaLogo.png")).getImage());
+    	setIconImage(new ImageIcon(getClass().getResource("javaLogo.png")).getImage()); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 500);
         setResizable(false);
@@ -108,17 +109,18 @@ public class JautajumuLogs extends JFrame {
         allCorrectAnswers = new ArrayList<>();
         allUserAnswers = new ArrayList<>();
 
-        loadQuestionsFromFile(QUESTIONS_FILE);
+        loadQuestionsFromFile(QUESTIONS_FILE); 
         if (allQuestionTexts.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Neizdevās ielādēt jautājumus vai fails ir tukšs: " + QUESTIONS_FILE, "Kļūda", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Neizdevās ielādēt jautājumus vai fails ir tukšs: " + QUESTIONS_FILE + ". Pārbaudiet faila esamību un saturu.", "Kļūda", JOptionPane.ERROR_MESSAGE);
             nextButton.setEnabled(false);
         } else {
             displayQuestion();
         }
     }
 
-    private void loadQuestionsFromFile(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    private void loadQuestionsFromFile(String fileName) { 
+        try (InputStream is = getClass().getResourceAsStream("/" + fileName);
+             BufferedReader br = new BufferedReader(new InputStreamReader(is))) { 
             String line;
             List<String> currentQuestionData = new ArrayList<>();
             while ((line = br.readLine()) != null) {
@@ -150,7 +152,11 @@ public class JautajumuLogs extends JFrame {
             }
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Kļūda, lasot jautājumus no faila: " + e.getMessage(), "Faila Lasīšanas Kļūda", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Kļūda, lasot jautājumus no resursa: " + e.getMessage(), "Resursu Lasīšanas Kļūda", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            
+            JOptionPane.showMessageDialog(this, "Kļūda: Jautājumu fails '" + fileName + "' nav atrasts kā resurss. Pārliecinieties, vai tas ir pareizi iekļauts JAR failā.", "Resursu Kļūda", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
