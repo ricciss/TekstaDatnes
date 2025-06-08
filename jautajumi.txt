@@ -1,0 +1,69 @@
+Kāda Java pakotne ļauj strādāt ar failiem, izmantojot 'File' klasi?
+A) java.util
+B) java.lang
+C) java.io
+D) java.net
+C
+---
+Kuras divas klases ir ieteicams izmantot datu rakstīšanai un lasīšanai no teksta failiem Java valodā?
+A) FileInputStream un FileOutputStream
+B) FileReader un FileWriter
+C) DataInputStream un DataOutputStream
+D) BufferedInputStream un BufferedOutputStream
+B
+---
+Kāda ir FileWriter klases galvenā funkcija?
+A) Datu rakstīšana baitu formā failā
+B) Datu lasīšana baitu formā no faila
+C) Datu rakstīšana rakstzīmju formā failā
+D) Datu lasīšana rakstzīmju formā no faila
+C
+---
+Kāda metode tiek izmantota, lai izveidotu jaunu, tukšu failu, izmantojot 'File' klasi?
+A) openNewFile()
+B) create()
+C) newFile()
+D) createNewFile()
+D
+---
+Kāda ir noklusējuma lieluma iekšējā bufera vērtība BufferedReader klasē?
+A) 1024 rakstzīmes
+B) 2048 rakstzīmes
+C) 4096 rakstzīmes
+D) 8192 rakstzīmes
+D
+---
+Kura no minētajām metodēm pieder BufferedReader klasei, un tiek izmantota, lai izlaistu noteiktu skaitu rakstzīmju?
+A) readLine()
+B) skip()
+C) jump()
+D) nextChar()
+B
+---
+Kura metode ir piemērota datu lasīšanai pa rindām no teksta faila?
+A) readChar()
+B) read()
+C) readLine()
+D) readBytes()
+C
+---
+Kāpēc BufferedReader ir efektīvāks par parasto FileReader?
+A) Tas izmanto mazāk atmiņas.
+B) Tas samazina saziņas skaitu ar disku, izmantojot buferi.
+C) Tas var nolasīt binārus datus.
+D) Tas atbalsta vairāku pavedienu lasīšanu.
+B
+---
+Kura klase tiek izmantota, lai nolasītu lietotāja ievadi no konsoles, kas līdzīga teksta faila lasīšanai, bet nav nepieciešama šajā GUI risinājumā?
+A) FileReader
+B) System.in
+C) Scanner
+D) InputStream
+C
+---
+Kāds ir galvenais ieguvums, izmantojot try-with-resources bloku ar failu straumēm?
+A) Tas palielina failu lasīšanas ātrumu.
+B) Tas automātiski aizver resursus, neatkarīgi no tā, vai rodas izņēmums.
+C) Tas nodrošina datu šifrēšanu.
+D) Tas atbalsta asinhronas darbības.
+B
