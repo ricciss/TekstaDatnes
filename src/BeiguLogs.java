@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,7 +50,7 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 setBounds(100, 100, 900, 700);
 setResizable(false);
 setTitle("Testa Rezultāti");
-
+setIconImage(new ImageIcon(getClass().getResource("javaLogo.png")).getImage());
 contentPane = new JPanel();
 contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 contentPane.setLayout(null);

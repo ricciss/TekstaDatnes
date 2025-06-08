@@ -49,6 +49,7 @@ public class JautajumuLogs extends JFrame {
     private final String QUESTIONS_FILE = "jautajumi.txt";
 
     public JautajumuLogs() {
+    	setIconImage(new ImageIcon(getClass().getResource("javaLogo.png")).getImage());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 500);
         setResizable(false);
