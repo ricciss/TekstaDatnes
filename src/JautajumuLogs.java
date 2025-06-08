@@ -13,32 +13,38 @@ public class JautajumuLogs extends JFrame {
 
     private static final long serialVersionUID = 1L;
     static JautajumuLogs frame = new JautajumuLogs();
-
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
     private JPanel contentPane;
     private JTextArea questionTextArea;
     private JRadioButton[] optionButtons;
     private ButtonGroup optionsGroup;
     private JButton nextButton;
+    private JLabel scoreLabel;
 
     private List<String> allQuestionTexts;
     private List<String> allOptionAs;
     private List<String> allOptionBs;
     private List<String> allOptionCs;
     private List<String> allOptionDs;
+    private List<String> allCorrectAnswers;
+    private List<String> allUserAnswers;
 
     private int currentQuestionIndex = 0;
+    private int totalScore = 0;
+    private int correctAnswersCount = 0;
+    private int incorrectAnswersCount = 0;
 
     private final String QUESTIONS_FILE = "jautajumi.txt";
 
@@ -46,13 +52,18 @@ public class JautajumuLogs extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 500);
         setResizable(false);
-        setTitle("Jautājumi");
+        setTitle("Tests par Darbu ar Teksta Datnēm Java");
 
         contentPane = new JPanel();
         contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
         setContentPane(contentPane);
+
+        scoreLabel = new JLabel("Punkti: 0");
+        scoreLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+        scoreLabel.setBounds(750, 10, 120, 30);
+        contentPane.add(scoreLabel);
 
         questionTextArea = new JTextArea("Jautājums tiks ielādēts...");
         questionTextArea.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -84,7 +95,7 @@ public class JautajumuLogs extends JFrame {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadNextQuestion();
+                checkAnswerAndLoadNextQuestion();
             }
         });
 
@@ -93,6 +104,8 @@ public class JautajumuLogs extends JFrame {
         allOptionBs = new ArrayList<>();
         allOptionCs = new ArrayList<>();
         allOptionDs = new ArrayList<>();
+        allCorrectAnswers = new ArrayList<>();
+        allUserAnswers = new ArrayList<>();
 
         loadQuestionsFromFile(QUESTIONS_FILE);
         if (allQuestionTexts.isEmpty()) {
@@ -109,12 +122,13 @@ public class JautajumuLogs extends JFrame {
             List<String> currentQuestionData = new ArrayList<>();
             while ((line = br.readLine()) != null) {
                 if (line.trim().equals("---")) {
-                    if (currentQuestionData.size() >= 5) {
+                    if (currentQuestionData.size() == 6) {
                         allQuestionTexts.add(currentQuestionData.get(0));
                         allOptionAs.add(removeOptionPrefix(currentQuestionData.get(1)));
                         allOptionBs.add(removeOptionPrefix(currentQuestionData.get(2)));
                         allOptionCs.add(removeOptionPrefix(currentQuestionData.get(3)));
                         allOptionDs.add(removeOptionPrefix(currentQuestionData.get(4)));
+                        allCorrectAnswers.add(currentQuestionData.get(5));
                     } else {
                         System.out.println("Brīdinājums: Nepilnīgs jautājuma bloks. Rindas: " + currentQuestionData.size());
                     }
@@ -123,15 +137,15 @@ public class JautajumuLogs extends JFrame {
                     currentQuestionData.add(line.trim());
                 }
             }
-            
-            if (currentQuestionData.size() >= 5) {
+            if (currentQuestionData.size() == 6) {
                 allQuestionTexts.add(currentQuestionData.get(0));
                 allOptionAs.add(removeOptionPrefix(currentQuestionData.get(1)));
                 allOptionBs.add(removeOptionPrefix(currentQuestionData.get(2)));
                 allOptionCs.add(removeOptionPrefix(currentQuestionData.get(3)));
                 allOptionDs.add(removeOptionPrefix(currentQuestionData.get(4)));
+                allCorrectAnswers.add(currentQuestionData.get(5));
             } else if (!currentQuestionData.isEmpty()) {
-                System.out.println("Brīdinājums: Nepilnīgs pēdējais jautājuma bloks. Rindas: " + currentQuestionData.size());
+                 System.out.println("Brīdinājums: Nepilnīgs pēdējais jautājuma bloks. Rindas: " + currentQuestionData.size());
             }
 
         } catch (IOException e) {
@@ -147,6 +161,7 @@ public class JautajumuLogs extends JFrame {
         return optionText;
     }
 
+
     private void displayQuestion() {
         if (currentQuestionIndex < allQuestionTexts.size()) {
             questionTextArea.setText(allQuestionTexts.get(currentQuestionIndex));
@@ -159,19 +174,51 @@ public class JautajumuLogs extends JFrame {
             optionsGroup.clearSelection();
 
             if (currentQuestionIndex == allQuestionTexts.size() - 1) {
-                nextButton.setText("Pabeigt"); 
+                nextButton.setText("Pabeigt testu");
             } else {
                 nextButton.setText("Nākamais");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Esat apskatījis visus jautājumus!", "Pabeigts", JOptionPane.INFORMATION_MESSAGE);
-            nextButton.setEnabled(false); 
+            finishQuiz();
         }
     }
 
-    private void loadNextQuestion() {
+    private void checkAnswerAndLoadNextQuestion() {
+        String selectedOptionLetter = null;
+        for (int i = 0; i < 4; i++) {
+            if (optionButtons[i].isSelected()) {
+                selectedOptionLetter = String.valueOf((char)('A' + i));
+                break;
+            }
+        }
+
+        if (selectedOptionLetter == null) {
+            JOptionPane.showMessageDialog(this, "Lūdzu, izvēlieties atbildi!", "Nav izvēles", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        allUserAnswers.add(selectedOptionLetter);
+
+        String currentCorrectAnswerLetter = allCorrectAnswers.get(currentQuestionIndex);
+
+        if (selectedOptionLetter.equalsIgnoreCase(currentCorrectAnswerLetter)) {
+            totalScore += 2;
+            correctAnswersCount++;
+            JOptionPane.showMessageDialog(this, "Pareizi! +2 punkti.", "Atbilde", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            totalScore -= 1;
+            incorrectAnswersCount++;
+            JOptionPane.showMessageDialog(this, "Nepareizi! -1 punkts. Pareizā atbilde bija: " + currentCorrectAnswerLetter, "Atbilde", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        scoreLabel.setText("Punkti: " + totalScore);
+
         currentQuestionIndex++;
         displayQuestion();
+    }
+
+    private void finishQuiz() {
+       
     }
 
     public static JautajumuLogs getFrame() {
