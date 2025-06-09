@@ -142,7 +142,7 @@ public class BeiguLogs extends JFrame {
 		backButton.addActionListener(new ActionListener() {
 		   @Override
 		   public void actionPerformed(ActionEvent e) {
-		       dispose();
+			   System.exit(0);
 		       
 		   }
 		});
